@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptacraft - Ciphercraft</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cryptacraft</h1>
+        <p>Ciphercraft</p>
+    </header>
+    <nav>
+        <script src="navbar.js"></script>
+    </nav>
+    <main>
+        <section id="encryption">
+            <h2>Encryption</h2>
+            <textarea id="plaintext" placeholder="Enter your plaintext here"></textarea>
+            <label for="publicKey">Public Key (e, N):</label>
+            <input type="text" id="publicKey" placeholder="Enter public key (e, N)">
+            <button onclick="encrypt()">Encrypt</button>
+            <p id="encryptedText"></p>
+        </section>
+        <section id="decryption">
+            <h2>Decryption</h2>
+            <textarea id="ciphertext" placeholder="Enter your ciphertext here (ASCII values)"></textarea>
+            <label for="privateKey">Private Key (d, N):</label>
+            <input type="text" id="privateKey" placeholder="Enter private key (d, N)">
+            <button onclick="decrypt()">Decrypt</button>
+            <p id="decryptedText"></p>
+        </section>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <script>
+        // Function to compute modular exponentiation
+        function modExp(base, exp, mod) {
+            if (mod === 1) return 0;
+            let result = 1;
+            base = base % mod;
+            while (exp > 0) {
+                if (exp % 2 === 1) result = (result * base) % mod;
+                exp = Math.floor(exp / 2);
+                base = (base * base) % mod;
+            }
+            return result;
+        }
+
+        // Function to handle encryption button click
+        function encrypt() {
+            const plaintext = document.getElementById("plaintext").value;
+            const publicKeyStr = document.getElementById("publicKey").value;
+            const publicKeyParts = publicKeyStr.split(',');
+            if (publicKeyParts.length !== 2) {
+                alert("Invalid public key format. Please enter e and N separated by a comma.");
+                return;
+            }
+            const e = parseInt(publicKeyParts[0]);
+            const N = parseInt(publicKeyParts[1]);
+            if (isNaN(e) || isNaN(N)) {
+                alert("Invalid public key format. Please enter numeric values.");
+                return;
+            }
+            const encryptedText = rsaEncrypt(plaintext, e, N);
+            document.getElementById("encryptedText").textContent = encryptedText;
+        }
+
+        // Function to handle decryption button click
+        function decrypt() {
+            const ciphertext = document.getElementById("ciphertext").value;
+            const privateKeyStr = document.getElementById("privateKey").value;
+            const privateKeyParts = privateKeyStr.split(',');
+            if (privateKeyParts.length !== 2) {
+                alert("Invalid private key format. Please enter d and N separated by a comma.");
+                return;
+            }
+            const d = parseInt(privateKeyParts[0]);
+            const N = parseInt(privateKeyParts[1]);
+            if (isNaN(d) || isNaN(N)) {
+                alert("Invalid private key format. Please enter numeric values.");
+                return;
+            }
+            const decryptedText = rsaDecrypt(ciphertext, d, N);
+            document.getElementById("decryptedText").textContent = decryptedText;
+        }
+
+        // RSA encryption function
+        function rsaEncrypt(plaintext, e, N) {
+            let encryptedText = "";
+            for (let i = 0; i < plaintext.length; i++) {
+                const charCode = plaintext.charCodeAt(i);
+                const encryptedCharCode = modExp(charCode, e, N);
+                encryptedText += encryptedCharCode + " ";
+            }
+            return encryptedText.trim();
+        }
+
+        // RSA decryption function
+        function rsaDecrypt(ciphertext, d, N) {
+            const encryptedChars = ciphertext.split(' ');
+            let decryptedText = "";
+            for (let i = 0; i < encryptedChars.length; i++) {
+                const encryptedCharCode = parseInt(encryptedChars[i]);
+                const decryptedCharCode = modExp(encryptedCharCode, d, N);
+                decryptedText += String.fromCharCode(decryptedCharCode);
+            }
+            return decryptedText;
+        }
+    </script>
+</body>
+</html>

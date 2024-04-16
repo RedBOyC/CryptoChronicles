@@ -1,0 +1,5 @@
+website name: Cryptacraft
+Homepage name: CryptoChronicle
+Calculator name: RSAPrime realm
+Tools name: Ciphercraft
+Readmore name: Crptopedia

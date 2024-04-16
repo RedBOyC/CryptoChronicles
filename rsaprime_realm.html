@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSAPrime Realm</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar"></nav>
+    <script src="navbar.js"></script>
+
+    <header>
+        <h1>RSAPrime Realm</h1>
+        <p>Exploring Prime Numbers in Arithmetic Progressions</p>
+    </header>
+
+    <main>
+        <h2>mth Prime Number Calculator</h2>
+        <label for="mValue">Enter the value for m:</label>
+        <input type="number" id="mValue">
+        <button onclick="calculateMthPrime()">Calculate</button>
+        <p id="mthPrimeResult"></p>
+
+        <h2>Euler's Totient Function (φ) Calculator</h2>
+        <label for="prime-p">Enter the first prime factor (p) of N:</label>
+        <input type="number" id="prime-p" min="2" placeholder="Enter p">
+        <label for="prime-q">Enter the second prime factor (q) of N:</label>
+        <input type="number" id="prime-q" min="2" placeholder="Enter q">
+        <button onclick="calculateTotient()">Calculate φ(N)</button>
+        <p id="result-totient"></p>
+
+        <h2>RSA Private Key (d) Calculator</h2>
+        <label for="public-key">Enter the public key (e):</label>
+        <input type="number" id="public-key" min="2" placeholder="Enter e">
+        <label for="phi-n">Enter Euler's Totient Function (φ) for N:</label>
+        <input type="number" id="phi-n" min="1" placeholder="Enter φ(N)">
+        <button onclick="calculatePrivateKey()">Calculate Private Key (d)</button>
+        <p id="result-private-key"></p>
+
+        <h2>RSA Factorization Calculator</h2>
+        <label for="rsa-key">Enter the RSA key:</label>
+        <input type="text" id="rsa-key" placeholder="Enter RSA key">
+        <button onclick="factorizeRSA()">Factorize</button>
+        <p id="result-rsa"></p>
+    </main>
+
+    <script>
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            let i = 5;
+            while (i * i <= num) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+                i += 6;
+            }
+            return true;
+        }
+
+        function calculateMthPrime() {
+            const m = parseInt(document.getElementById("mValue").value);
+            if (m <= 0 || isNaN(m)) {
+                document.getElementById("mthPrimeResult").innerHTML = "Invalid input";
+                return;
+            }
+
+            let n = 0;
+            let count = 0;
+
+            while (count < m) {
+                const value = 2 * n + 3;
+
+                if (isPrime(value)) {
+                    count++;
+                    if (count === m) {
+                        document.getElementById("mthPrimeResult").innerHTML = `The ${m}th prime number is: ${value}`;
+                        return;
+                    }
+                }
+
+                n++;
+            }
+
+            document.getElementById("mthPrimeResult").innerHTML = "Error occurred";
+        }
+
+        function calculateTotient() {
+            const primeP = document.getElementById('prime-p').value;
+            const primeQ = document.getElementById('prime-q').value;
+
+            if (!primeP || !primeQ || primeP < 2 || primeQ < 2) {
+                document.getElementById('result-totient').textContent = 'Please enter valid values for p and q';
+                return;
+            }
+
+            const p = parseInt(primeP);
+            const q = parseInt(primeQ);
+            const phiN = (p - 1) * (q - 1);
+            document.getElementById('result-totient').textContent = `Euler's Totient Function (φ) for N is: ${phiN}`;
+        }
+
+        function calculatePrivateKey() {
+            const publicKey = document.getElementById('public-key').value;
+            const phiN = document.getElementById('phi-n').value;
+
+            if (!publicKey || !phiN || publicKey < 2 || phiN < 1) {
+                document.getElementById('result-private-key').textContent = 'Please enter valid values for e and φ(N)';
+                return;
+            }
+
+            const e = parseInt(publicKey);
+            const phi = parseInt(phiN);
+            const d = modInverse(BigInt(e), BigInt(phi));
+            document.getElementById('result-private-key').textContent = `The private key (d) is: ${d.toString()}`;
+        }
+
+        function factorizeRSA() {
+            const rsaKey = document.getElementById('rsa-key').value;
+            if (!rsaKey || !/^\d+$/.test(rsaKey)) {
+                document.getElementById('result-rsa').textContent = 'Please enter a valid RSA key (numeric value)';
+                return;
+            }
+            let key = BigInt(rsaKey);
+            let factors = [];
+            for (let i = 2n; i * i <= key; i++) {
+                while (key % i === 0n) {
+                    factors.push(i.toString());
+                    key /= i;
+                }
+            }
+            if (key > 1n) {
+                factors.push(key.toString());
+            }
+            document.getElementById('result-rsa').textContent = `The factors of the RSA key are: ${factors.join(', ')}`;
+        }
+
+        function modInverse(a, m) {
+            for (let x = 1n; x < m; x++) {
+                if ((a * x) % m === 1n) {
+                    return x;
+                }
+            }
+            return null;
+        }
+    </script> 
+</body>
+</html>

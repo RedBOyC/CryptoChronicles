@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoChronicle - CryptaCraft</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Add this line to link your CSS file -->
+    <!-- Add your CSS link for styling here -->
+    <script src="navbar.js" defer></script> <!-- Include the navigation bar script -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to CryptoChronicle</h1>
+        <!-- Navigation bar will be dynamically generated here -->
+    </header>
+    <main>
+        <section id="tutorial">
+            <h2>RSA Algorithm Tutorial</h2>
+            <!-- Add your tutorial steps here -->
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS1.png" alt="Tutorial Step 1" style="width: 66%;">
+                <p>Sending secure messages may sound complex, but it's simpler than you think! 
+                    In CryptoChronicles, we break down the process into just four steps. Key Generation, 
+                    Key Distribution, Encryption, and Decryption are the key pillars of cryptography. 
+                    Although they may seem intimidating at first, our user-friendly interface and 
+                    video tutorials by Zach Star in Cryptopedia make it easy to understand. 
+                    Get started today and unlock the secrets of secure communication!</p>
+            </div>
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS2.png" alt="Tutorial Step 2">
+                <p>Key Generation is the first crucial step in cryptography. In this screenshot, we delve
+                     into the process of generating cryptographic keys. It begins with the calculation of 
+                     N, which is the product of two large prime numbers, P and Q. These prime numbers are 
+                     chosen randomly to enhance security. Next, we determine the public key, denoted as 
+                     'e,' and the private key, denoted as 'd.' The criteria for selecting these keys are 
+                     outlined in the screenshot. To compute 'e,' we employ Euler's totient function, 
+                     which involves understanding the concept of Phi of N (ϕ(N)), 
+                     calculated as (P-1) * (Q-1). Computing 'd' involves modular arithmetic, 
+                     a concept centered around division. Don't worry if these concepts sound daunting; 
+                     our RSAPrime Realm section offers handy calculators to assist you. 
+                     Additionally, for a deeper understanding, Michael Penn's videos on Number Theory are
+                      recommended.</p>
+            </div>
+            <!-- Add more tutorial steps as needed -->
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS3.png" alt="Tutorial Step 3">
+                <p>Sending secure messages involves not only encrypting the message but also ensuring that 
+                    only the intended recipient can decrypt and read it. Key distribution plays a crucial 
+                    role in achieving this goal. When person A wants to send a confidential message to 
+                    person B without the risk of interception by eavesdroppers, they rely on key 
+                    distribution. Person A needs to know person B's public key, denoted as e, and the 
+                    modulus N. These values, which are necessary for encryption, can be openly distributed 
+                    and are accessible to anyone, including potential eavesdroppers. However, for person B to 
+                    decrypt the message and access its contents, they require their private key d, in 
+                    addition to the modulus N. Unlike the public key, which can be openly shared, the 
+                    private key d is kept confidential and known only to person B. This ensures that only 
+                    person B, the intended recipient, possesses the means to decipher the encrypted 
+                    message, thus preserving the confidentiality of the communication.</p>
+            </div>
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS4.png" alt="Tutorial Step 4">
+                <p>The process of encrypting a message ensures that it remains confidential during transmission. When person A sends a message to person B, it begins in a format known as unpadded plaintext 
+                    M. However, before sending the message, A and B agree upon a padding scheme. This 
+                    scheme allows A to transform M into m, a padded plaintext usually represented in 
+                    numerical form. Once m is prepared, A employs a mathematical expression, as depicted 
+                    in the screenshot, to compute the ciphertext c. This expression involves modular 
+                    exponentiation and ensures that the message is securely encoded. Subsequently, A 
+                    transmits c to B, who will then proceed to decrypt it using their private key d and 
+                    the modulus N.</p>
+            </div>
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS5.png" alt="Tutorial Step 5">
+                <p>Upon receiving the ciphertext c from person A, person B initiates the decryption 
+                    process. The first step involves unpacking m from c. Once m is extracted, B utilizes 
+                    the agreed-upon padding scheme to recover the original plaintext message M. This 
+                    process allows B to decipher the encrypted message securely sent by A. Thus, through 
+                    the combined efforts of encryption and decryption, A successfully transmitted a 
+                    confidential message to B, who then successfully decrypted it, ensuring the 
+                    confidentiality and integrity of the communication.</p>
+            </div>
+            <div class="tutorial-step">
+                <img src="C:\Users\linga\OneDrive\Desktop\crpto tools web codes\Index screenshots\SS6.png" alt="Tutorial Step 6">
+                <p>Have fun playing around with the calculators provided in RSAPrime Realm section.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+</body>
+</html>
